@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Developia</title>
+    <link th:href="@{css/style.css}" rel="stylesheet">
+</head>
+<body>
+<img class="logo" th:src="@{images/developia_logo.png}">
+<div>
+    <h3>Registration</h3><br/>
+    <form method="post" th:object="${student}">
+        Name: <input type="text" th:field="*{name}"><br/>
+        Surname: <input type="text" th:field="*{surname}"><br/>
+        Birthday: <input type="date" name="date" placeholder="birthday"><br/>
+        Sector: <select name="sector" id="sector">
+        <option th:each="sector:${sectorList}" th:value="${sector.id}" th:text="${sector.value}"></option>
+    </select>
+        <input type="submit" value="save">
+    </form>
+</div>
+<div>
+    <h3>Students table</h3>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Birthday</th>
+            <th>Sector</th>
+            <th>Action</th>
+        </tr>
+        <tr th:each="student:${studentList}">
+            <td th:text="${student.name}"></td>
+            <td th:text="${student.surname}"></td>
+            <td th:text="${student.date}"></td>
+            <td th:text="${student.sector.value}"></td>
+            <td><a th:href="@{/delete/{id}(id=${student.id})}">Delete</a></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

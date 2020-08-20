@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Student</title>
+    <link th:href="@{../css/style.css}" rel="stylesheet">
+</head>
+<body>
+<img class="logo" th:src="@{../images/developia_logo.png}">
+<form method="post" th:action="@{/editStudent}" th:object="${editStudent}">
+    Id:<input type="text" th:field="*{id}" readonly><br/>
+    Name: <input type="text" th:field="*{name}"><br/>
+    Surname: <input type="text" th:field="*{surname}"><br/>
+    Birthday: <input  type="date" name="date" th:field="*{date}"><br/>
+    Sector: <select th:id="sector" name="sector" id="sector">
+    <option th:each="sector:${sectorList}" th:value="${sector.id}" th:text="${sector.value}" th:selected="${editStudent.sector.id}"></option>
+</select>
+    <input type="submit" value="edit">
+</form>
+</body>
+</html>

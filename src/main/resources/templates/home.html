@@ -4,16 +4,17 @@
     <meta charset="UTF-8">
     <title>Developia</title>
     <link th:href="@{css/style.css}" rel="stylesheet">
+    <script th:src="@{js/main.js}"></script>
 </head>
 <body>
 <img class="logo" th:src="@{images/developia_logo.png}">
 <div>
     <h3>Registration</h3><br/>
     <form method="post" th:object="${student}">
-        Name: <input type="text" th:field="*{name}"><br/>
-        Surname: <input type="text" th:field="*{surname}"><br/>
-        Birthday: <input type="date" name="date" placeholder="birthday"><br/>
-        Sector: <select name="sector" id="sector">
+        Name: <input id="name" type="text" th:field="*{name}"><br/>
+        Surname: <input id="surname" type="text" th:field="*{surname}"><br/>
+        Birthday: <input id="birthday" type="date" name="date" placeholder="birthday"><br/>
+        Sector: <select th:id="sector" name="sector" id="sector">
         <option th:each="sector:${sectorList}" th:value="${sector.id}" th:text="${sector.value}"></option>
     </select>
         <input type="submit" value="save">
@@ -30,11 +31,13 @@
             <th>Action</th>
         </tr>
         <tr th:each="student:${studentList}">
-            <td th:text="${student.name}"></td>
-            <td th:text="${student.surname}"></td>
-            <td th:text="${student.date}"></td>
-            <td th:text="${student.sector.value}"></td>
-            <td><a th:href="@{/delete/{id}(id=${student.id})}">Delete</a></td>
+            <td id="studentName" th:text="${student.name}"></td>
+            <td id="studentSurname" th:text="${student.surname}"></td>
+            <td id="studentBirthday" th:text="${student.date}"></td>
+            <td id="studentSector" th:text="${student.sector.value}"></td>
+            <td><a th:href="@{/delete/{id}(id=${student.id})}"><img th:src="@{images/delete_in.png}"></a>
+                <a th:href="@{/edit/{id}(id=${student.id})}"><img th:src="@{images/edit_in.png}"></a>
+            </td>
         </tr>
     </table>
 </div>

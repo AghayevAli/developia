@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -39,14 +40,29 @@ public class CourseController {
 
     @PostMapping("/")
     public String post(Student student) {
-        System.out.println(student);
         studentService.addStudent(student);
         return "redirect:/";
     }
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id") Long id) {
-        System.out.print(id);
+        studentService.deleteStudent(id);
+        return "redirect:/";
+    }
+
+    @GetMapping("/edit/{id}")
+    public ModelAndView edit(@PathVariable("id") Long id) {
+        List<Sector> sectorList = sectorService.getSectorList();
+        ModelAndView modelAndView = new ModelAndView("edit_page");
+        Student student = studentService.getStudent(id);
+        modelAndView.addObject("editStudent", student);
+        modelAndView.addObject("sectorList", sectorList);
+        return modelAndView;
+    }
+
+    @PostMapping("/editStudent")
+    public String editStudent(Student student) {
+        studentService.editStudent(student);
         return "redirect:/";
     }
 
